@@ -13,6 +13,7 @@ const fs = require('fs');
 const key = fs.readFileSync('./key.pem');
 const cert = fs.readFileSync('./cert.pem');
 require('dotenv').config()
+const API_KEY = process.env.API_KEY
 const httpsServer = https.createServer({key: key, cert: cert }, app);
 
 const axiosHttp = axios.create({
@@ -37,7 +38,6 @@ app.get('/forecast', async (req, res) => {
                 appid: API_KEY
             }
         })
-        console.log(process.env.API_KEY)
         res.send(request)
     }catch(e){
         switch(e.response.status){
@@ -46,7 +46,6 @@ app.get('/forecast', async (req, res) => {
                 res.send('Internal Server Error')
                 break
             case 401:
-                console.log('API KEY: ' + process.env.API_KEY)
                 res.status(401)
                 res.send('Wrong API Key')
                 break
