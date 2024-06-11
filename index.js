@@ -12,10 +12,8 @@ const https = require('node:https');
 const fs = require('fs');
 const key = fs.readFileSync('./key.pem');
 const cert = fs.readFileSync('./cert.pem');
+require('dotenv').config()
 const httpsServer = https.createServer({key: key, cert: cert }, app);
-
-//API Key
-const API_KEY = 'b3da781e83d7aebf3405a5dbf705a5fc'
 
 const axiosHttp = axios.create({
     baseURL: 'http://api.openweathermap.org/data/2.5/forecast'
@@ -39,8 +37,8 @@ app.get('/forecast', async (req, res) => {
                 appid: API_KEY
             }
         })
+        console.log(process.env.API_KEY)
         res.send(request)
-        console.log(API_KEY)
     }catch(e){
         switch(e.response.status){
             case 500:
@@ -48,6 +46,7 @@ app.get('/forecast', async (req, res) => {
                 res.send('Internal Server Error')
                 break
             case 401:
+                console.log('API KEY: ' + process.env.API_KEY)
                 res.status(401)
                 res.send('Wrong API Key')
                 break
