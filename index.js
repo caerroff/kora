@@ -28,8 +28,14 @@ app.get('/forecast', async (req, res) => {
         return
     }
 
-    const lat = 45
-    const lon = 4
+    if(req.query.lat === undefined || req.query.lon === undefined){
+        res.status(400)
+        res.send('Bad Request')
+        return
+    }
+
+    const lat = req.query.lat
+    const lon = req.query.lon
     try{
         request = await axiosHttp.get('', {
             params: {
@@ -47,7 +53,7 @@ app.get('/forecast', async (req, res) => {
                 break
             case 401:
                 res.status(401)
-                res.send('Wrong API Key')
+                res.send('Wrong API Key for '+e.request.path)
                 break
         }
     }
