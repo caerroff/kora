@@ -1,6 +1,31 @@
-# kora
+# Kora
+
+## Response
+The response is structured as follow 
+```
+{
+    status:  int
+    data: {
+        list: {
+            {date}: string {
+                {number}: int -> temperature : float
+            }
+        },
+        averages: {
+            {date}: string -> temperature : float
+        }
+    }
+}
+```
 
 ## Endpoints
+
+### URL
+The only accessible URL is `/forecast` with the `GET` method.
+Two parameters are mandatory for the route, being `lat`and `lon`
+lat: float -> The latitude of the position we want to retrieve the informations about
+lon: float -> The longitude of the position we want to retrieve the informations about
+
 ### HTTP
 HTTP server is launched on port 3000
 
