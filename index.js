@@ -91,9 +91,11 @@ app.get('/forecast', async (req, res) => {
 // Launching servers
 
 httpServer.listen(3000, () => {
+    console.log('Environment: ', process.env.NODE_ENV)
     console.log('Listening port 3000 for HTTP...')
 })
 
 httpsServer.listen(3001, () => {
+    console.log('Environment: ', process.env.NODE_ENV)
     console.log('Listening port 3001 for HTTPS...')
 })
